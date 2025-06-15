@@ -38,13 +38,15 @@ describe('ingredientsSlice', () => {
   };
 
   test('should return the initial state', () => {
-    expect(ingredientsReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    expect(ingredientsReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
+    );
   });
 
   test('should handle getIngredients.pending', () => {
     const action = { type: getIngredients.pending.type };
     const state = ingredientsReducer(initialState, action);
-    
+
     expect(state).toEqual({
       data: [],
       isLoading: true,
@@ -58,7 +60,7 @@ describe('ingredientsSlice', () => {
       payload: mockIngredients
     };
     const state = ingredientsReducer(initialState, action);
-    
+
     expect(state).toEqual({
       data: mockIngredients,
       isLoading: false,
@@ -73,7 +75,7 @@ describe('ingredientsSlice', () => {
       error: { message: errorMessage }
     };
     const state = ingredientsReducer(initialState, action);
-    
+
     expect(state).toEqual({
       data: [],
       isLoading: false,
@@ -87,7 +89,7 @@ describe('ingredientsSlice', () => {
       error: {}
     };
     const state = ingredientsReducer(initialState, action);
-    
+
     expect(state).toEqual({
       data: [],
       isLoading: false,
@@ -101,10 +103,10 @@ describe('ingredientsSlice', () => {
       isLoading: false,
       error: 'Previous error'
     };
-    
+
     const action = { type: getIngredients.pending.type };
     const state = ingredientsReducer(stateWithError, action);
-    
+
     expect(state.error).toBeNull();
     expect(state.isLoading).toBe(true);
   });

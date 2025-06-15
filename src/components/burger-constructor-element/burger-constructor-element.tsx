@@ -1,6 +1,9 @@
 import { FC, memo } from 'react';
 import { useDispatch } from '../../services/store';
-import { moveIngredient, removeIngredient } from '../../services/slices/constructorSlice';
+import {
+  moveIngredient,
+  removeIngredient
+} from '../../services/slices/constructorSlice';
 import { BurgerConstructorElementUI } from '../ui/burger-constructor-element';
 import { BurgerConstructorElementProps } from './type';
 

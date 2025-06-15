@@ -7,10 +7,19 @@ import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
   const ingredients = useSelector((state) => state.ingredients.data);
-  
-  const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
-  const mains = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
-  const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+
+  const buns = useMemo(
+    () => ingredients.filter((item) => item.type === 'bun'),
+    [ingredients]
+  );
+  const mains = useMemo(
+    () => ingredients.filter((item) => item.type === 'main'),
+    [ingredients]
+  );
+  const sauces = useMemo(
+    () => ingredients.filter((item) => item.type === 'sauce'),
+    [ingredients]
+  );
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);

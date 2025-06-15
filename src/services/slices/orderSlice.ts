@@ -36,10 +36,13 @@ const orderSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(createOrder.fulfilled, (state, action: PayloadAction<TOrder>) => {
-        state.isLoading = false;
-        state.order = action.payload;
-      })
+      .addCase(
+        createOrder.fulfilled,
+        (state, action: PayloadAction<TOrder>) => {
+          state.isLoading = false;
+          state.order = action.payload;
+        }
+      )
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to create order';

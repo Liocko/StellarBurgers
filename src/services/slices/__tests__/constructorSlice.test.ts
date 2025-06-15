@@ -55,7 +55,9 @@ describe('constructorSlice', () => {
   };
 
   test('should return the initial state', () => {
-    expect(constructorReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    expect(constructorReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
+    );
   });
 
   test('should handle adding a bun', () => {
@@ -70,17 +72,20 @@ describe('constructorSlice', () => {
       bun: mockBun,
       ingredients: []
     };
-    
+
     const newBun = { ...mockBun, _id: '4', name: 'Новая булка' };
     const actual = constructorReducer(stateWithBun, addIngredient(newBun));
-    
+
     expect(actual.bun).toEqual(expect.objectContaining(newBun));
     expect(actual.bun).toHaveProperty('id');
     expect(actual.ingredients).toEqual([]);
   });
 
   test('should handle adding an ingredient', () => {
-    const actual = constructorReducer(initialState, addIngredient(mockIngredient));
+    const actual = constructorReducer(
+      initialState,
+      addIngredient(mockIngredient)
+    );
     expect(actual.bun).toBeNull();
     expect(actual.ingredients).toHaveLength(1);
     expect(actual.ingredients[0]).toEqual(
@@ -94,21 +99,25 @@ describe('constructorSlice', () => {
   test('should handle adding multiple ingredients', () => {
     let state = constructorReducer(initialState, addIngredient(mockIngredient));
     state = constructorReducer(state, addIngredient(mockSauce));
-    
+
     expect(state.ingredients).toHaveLength(2);
     expect(state.ingredients[0]).toEqual(
       expect.objectContaining(mockIngredient)
     );
-    expect(state.ingredients[1]).toEqual(
-      expect.objectContaining(mockSauce)
-    );
+    expect(state.ingredients[1]).toEqual(expect.objectContaining(mockSauce));
   });
 
   test('should handle removing an ingredient', () => {
-    const stateWithIngredient = constructorReducer(initialState, addIngredient(mockIngredient));
+    const stateWithIngredient = constructorReducer(
+      initialState,
+      addIngredient(mockIngredient)
+    );
     const ingredientId = stateWithIngredient.ingredients[0].id;
-    
-    const actual = constructorReducer(stateWithIngredient, removeIngredient(ingredientId));
+
+    const actual = constructorReducer(
+      stateWithIngredient,
+      removeIngredient(ingredientId)
+    );
     expect(actual.ingredients).toHaveLength(0);
     expect(actual.bun).toBeNull();
   });
@@ -116,13 +125,14 @@ describe('constructorSlice', () => {
   test('should handle moving ingredients', () => {
     let state = constructorReducer(initialState, addIngredient(mockIngredient));
     state = constructorReducer(state, addIngredient(mockSauce));
-    
-    const actual = constructorReducer(state, moveIngredient({ fromIndex: 0, toIndex: 1 }));
-    
-    expect(actual.ingredients).toHaveLength(2);
-    expect(actual.ingredients[0]).toEqual(
-      expect.objectContaining(mockSauce)
+
+    const actual = constructorReducer(
+      state,
+      moveIngredient({ fromIndex: 0, toIndex: 1 })
     );
+
+    expect(actual.ingredients).toHaveLength(2);
+    expect(actual.ingredients[0]).toEqual(expect.objectContaining(mockSauce));
     expect(actual.ingredients[1]).toEqual(
       expect.objectContaining(mockIngredient)
     );
@@ -131,7 +141,7 @@ describe('constructorSlice', () => {
   test('should handle clearing constructor', () => {
     let state = constructorReducer(initialState, addIngredient(mockBun));
     state = constructorReducer(state, addIngredient(mockIngredient));
-    
+
     const actual = constructorReducer(state, clearConstructor());
     expect(actual).toEqual(initialState);
   });

@@ -29,10 +29,13 @@ const ingredientsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getIngredients.fulfilled, (state, action: PayloadAction<TIngredient[]>) => {
-        state.isLoading = false;
-        state.data = action.payload;
-      })
+      .addCase(
+        getIngredients.fulfilled,
+        (state, action: PayloadAction<TIngredient[]>) => {
+          state.isLoading = false;
+          state.data = action.payload;
+        }
+      )
       .addCase(getIngredients.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to fetch ingredients';

@@ -25,7 +25,7 @@ describe('orderSlice', () => {
   test('should handle createOrder.pending', () => {
     const action = { type: createOrder.pending.type };
     const state = orderReducer(initialState, action);
-    
+
     expect(state).toEqual({
       order: null,
       isLoading: true,
@@ -39,7 +39,7 @@ describe('orderSlice', () => {
       payload: mockOrder
     };
     const state = orderReducer(initialState, action);
-    
+
     expect(state).toEqual({
       order: mockOrder,
       isLoading: false,
@@ -54,7 +54,7 @@ describe('orderSlice', () => {
       error: { message: errorMessage }
     };
     const state = orderReducer(initialState, action);
-    
+
     expect(state).toEqual({
       order: null,
       isLoading: false,
@@ -68,7 +68,7 @@ describe('orderSlice', () => {
       error: {}
     };
     const state = orderReducer(initialState, action);
-    
+
     expect(state).toEqual({
       order: null,
       isLoading: false,
@@ -82,10 +82,10 @@ describe('orderSlice', () => {
       isLoading: false,
       error: null
     };
-    
+
     const action = clearOrder();
     const state = orderReducer(stateWithOrder, action);
-    
+
     expect(state).toEqual({
       order: null,
       isLoading: false,
@@ -99,10 +99,10 @@ describe('orderSlice', () => {
       isLoading: false,
       error: 'Previous error'
     };
-    
+
     const action = { type: createOrder.pending.type };
     const state = orderReducer(stateWithError, action);
-    
+
     expect(state.error).toBeNull();
     expect(state.isLoading).toBe(true);
   });

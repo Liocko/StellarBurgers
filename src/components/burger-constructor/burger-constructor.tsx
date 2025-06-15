@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useSelector, useDispatch } from '../../services/store';
+import { useNavigate } from 'react-router-dom';
 import { TConstructorIngredient } from '../../utils/types';
 import { BurgerConstructorUI } from '../ui/burger-constructor';
 import { createOrder, clearOrder } from '../../services/slices/orderSlice';
@@ -7,22 +8,30 @@ import { clearConstructor } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const constructorItems = useSelector((state) => state.burgerConstructor);
   const orderRequest = useSelector((state) => state.order.isLoading);
   const orderModalData = useSelector((state) => state.order.order);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    
+
+    // Проверяем авторизацию перед отправкой заказа
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
     const ingredientIds = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map(item => item._id),
+      ...constructorItems.ingredients.map((item) => item._id),
       constructorItems.bun._id
     ];
-    
+
     dispatch(createOrder(ingredientIds));
   };
-  
+
   const closeOrderModal = () => {
     dispatch(clearOrder());
     if (orderModalData) {
