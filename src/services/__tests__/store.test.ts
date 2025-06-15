@@ -1,5 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { ingredientsSlice, constructorSlice, orderSlice, userSlice } from '../slices';
+import {
+  ingredientsSlice,
+  constructorSlice,
+  orderSlice,
+  userSlice
+} from '../slices';
 
 const rootReducer = {
   ingredients: ingredientsSlice,

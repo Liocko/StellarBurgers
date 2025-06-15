@@ -70,15 +70,14 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const checkUserAuth = createAsyncThunk('user/checkAuth', async () => {
-  return await getUserApi();
-});
+export const checkUserAuth = createAsyncThunk(
+  'user/checkAuth',
+  async () => await getUserApi()
+);
 
 export const updateUser = createAsyncThunk(
   'user/update',
-  async (userData: Partial<TRegisterData>) => {
-    return await updateUserApi(userData);
-  }
+  async (userData: Partial<TRegisterData>) => await updateUserApi(userData)
 );
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
@@ -89,16 +88,13 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
 
 export const forgotPassword = createAsyncThunk(
   'user/forgotPassword',
-  async (data: { email: string }) => {
-    return await forgotPasswordApi(data);
-  }
+  async (data: { email: string }) => await forgotPasswordApi(data)
 );
 
 export const resetPassword = createAsyncThunk(
   'user/resetPassword',
-  async (data: { password: string; token: string }) => {
-    return await resetPasswordApi(data);
-  }
+  async (data: { password: string; token: string }) =>
+    await resetPasswordApi(data)
 );
 
 const userSlice = createSlice({

@@ -54,7 +54,9 @@ const localStorageMock = {
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('userSlice', () => {
-  let store: ReturnType<typeof configureStore<{ user: ReturnType<typeof userReducer> }>>;
+  let store: ReturnType<
+    typeof configureStore<{ user: ReturnType<typeof userReducer> }>
+  >;
 
   const mockUser = {
     email: 'test@example.com',
@@ -132,30 +134,40 @@ describe('userSlice', () => {
     it('should handle registerUser.fulfilled', async () => {
       registerUserApi.mockResolvedValue(mockAuthResponse);
 
-      await (store.dispatch as AppDispatch)(registerUser({
-        email: 'test@example.com',
-        password: 'password123',
-        name: 'Test User'
-      }));
+      await (store.dispatch as AppDispatch)(
+        registerUser({
+          email: 'test@example.com',
+          password: 'password123',
+          name: 'Test User'
+        })
+      );
 
       const state = store.getState().user;
       expect(state.registerUserRequest).toBe(false);
       expect(state.user).toEqual(mockUser);
       expect(state.isAuthenticated).toBe(true);
       expect(state.isAuthChecked).toBe(true);
-      expect(setCookie).toHaveBeenCalledWith('accessToken', 'mock-access-token');
-      expect(localStorageMock.setItem).toHaveBeenCalledWith('refreshToken', 'mock-refresh-token');
+      expect(setCookie).toHaveBeenCalledWith(
+        'accessToken',
+        'mock-access-token'
+      );
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(
+        'refreshToken',
+        'mock-refresh-token'
+      );
     });
 
     it('should handle registerUser.rejected', async () => {
       const errorMessage = 'Registration failed';
       registerUserApi.mockRejectedValue(new Error(errorMessage));
 
-      await (store.dispatch as AppDispatch)(registerUser({
-        email: 'test@example.com',
-        password: 'password123',
-        name: 'Test User'
-      }));
+      await (store.dispatch as AppDispatch)(
+        registerUser({
+          email: 'test@example.com',
+          password: 'password123',
+          name: 'Test User'
+        })
+      );
 
       const state = store.getState().user;
       expect(state.registerUserRequest).toBe(false);
@@ -174,28 +186,38 @@ describe('userSlice', () => {
     it('should handle loginUser.fulfilled', async () => {
       loginUserApi.mockResolvedValue(mockAuthResponse);
 
-      await (store.dispatch as AppDispatch)(loginUser({
-        email: 'test@example.com',
-        password: 'password123'
-      }));
+      await (store.dispatch as AppDispatch)(
+        loginUser({
+          email: 'test@example.com',
+          password: 'password123'
+        })
+      );
 
       const state = store.getState().user;
       expect(state.loginUserRequest).toBe(false);
       expect(state.user).toEqual(mockUser);
       expect(state.isAuthenticated).toBe(true);
       expect(state.isAuthChecked).toBe(true);
-      expect(setCookie).toHaveBeenCalledWith('accessToken', 'mock-access-token');
-      expect(localStorageMock.setItem).toHaveBeenCalledWith('refreshToken', 'mock-refresh-token');
+      expect(setCookie).toHaveBeenCalledWith(
+        'accessToken',
+        'mock-access-token'
+      );
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(
+        'refreshToken',
+        'mock-refresh-token'
+      );
     });
 
     it('should handle loginUser.rejected', async () => {
       const errorMessage = 'Login failed';
       loginUserApi.mockRejectedValue(new Error(errorMessage));
 
-      await (store.dispatch as AppDispatch)(loginUser({
-        email: 'test@example.com',
-        password: 'password123'
-      }));
+      await (store.dispatch as AppDispatch)(
+        loginUser({
+          email: 'test@example.com',
+          password: 'password123'
+        })
+      );
 
       const state = store.getState().user;
       expect(state.loginUserRequest).toBe(false);
@@ -239,7 +261,9 @@ describe('userSlice', () => {
       const updatedUser = { ...mockUser, name: 'Updated Name' };
       updateUserApi.mockResolvedValue({ user: updatedUser });
 
-      await (store.dispatch as AppDispatch)(updateUser({ name: 'Updated Name' }));
+      await (store.dispatch as AppDispatch)(
+        updateUser({ name: 'Updated Name' })
+      );
 
       const state = store.getState().user;
       expect(state.updateUserRequest).toBe(false);
@@ -250,7 +274,9 @@ describe('userSlice', () => {
       const errorMessage = 'Update failed';
       updateUserApi.mockRejectedValue(new Error(errorMessage));
 
-      await (store.dispatch as AppDispatch)(updateUser({ name: 'Updated Name' }));
+      await (store.dispatch as AppDispatch)(
+        updateUser({ name: 'Updated Name' })
+      );
 
       const state = store.getState().user;
       expect(state.updateUserRequest).toBe(false);
@@ -299,7 +325,9 @@ describe('userSlice', () => {
     it('should handle forgotPassword.fulfilled', async () => {
       forgotPasswordApi.mockResolvedValue({ success: true });
 
-      await (store.dispatch as AppDispatch)(forgotPassword({ email: 'test@example.com' }));
+      await (store.dispatch as AppDispatch)(
+        forgotPassword({ email: 'test@example.com' })
+      );
 
       const state = store.getState().user;
       expect(state.forgotPasswordRequest).toBe(false);
@@ -309,7 +337,9 @@ describe('userSlice', () => {
     it('should handle forgotPassword.rejected', async () => {
       forgotPasswordApi.mockRejectedValue(new Error('Forgot password failed'));
 
-      await (store.dispatch as AppDispatch)(forgotPassword({ email: 'test@example.com' }));
+      await (store.dispatch as AppDispatch)(
+        forgotPassword({ email: 'test@example.com' })
+      );
 
       const state = store.getState().user;
       expect(state.forgotPasswordRequest).toBe(false);
@@ -328,7 +358,9 @@ describe('userSlice', () => {
     it('should handle resetPassword.fulfilled', async () => {
       resetPasswordApi.mockResolvedValue({ success: true });
 
-      await (store.dispatch as AppDispatch)(resetPassword({ password: 'newpassword', token: 'reset-token' }));
+      await (store.dispatch as AppDispatch)(
+        resetPassword({ password: 'newpassword', token: 'reset-token' })
+      );
 
       const state = store.getState().user;
       expect(state.resetPasswordRequest).toBe(false);
@@ -338,7 +370,9 @@ describe('userSlice', () => {
     it('should handle resetPassword.rejected', async () => {
       resetPasswordApi.mockRejectedValue(new Error('Reset password failed'));
 
-      await (store.dispatch as AppDispatch)(resetPassword({ password: 'newpassword', token: 'reset-token' }));
+      await (store.dispatch as AppDispatch)(
+        resetPassword({ password: 'newpassword', token: 'reset-token' })
+      );
 
       const state = store.getState().user;
       expect(state.resetPasswordRequest).toBe(false);
